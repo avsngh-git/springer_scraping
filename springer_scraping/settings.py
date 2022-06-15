@@ -63,7 +63,8 @@ DOWNLOAD_DELAY = 3
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'springer_scraping.pipelines.DuplicatesPipeline': 300,
+   'springer_scraping.pipelines.DuplicatesPipeline': 100,
+   'springer_scraping.pipelines.MySqlPipeline': 200
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -86,3 +87,5 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+
