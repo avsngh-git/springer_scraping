@@ -3,11 +3,11 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/items.html
 
-from dataclasses import Field
+from scrapy.item import Item, Field
 import scrapy
 
 
-class SpringerScrapingItem(scrapy.Item):
+class SpringerScrapingItem(Item):
     title = Field()
     article_link = Field()
     snippet = Field()
