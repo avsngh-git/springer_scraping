@@ -1,6 +1,6 @@
 from time import time
-import scrapy
 from springer_scraping.items import SpringerScrapingItem
+import scrapy
 
 
 def get_li_tag_selector(response):
@@ -14,7 +14,7 @@ def get_li_tag_selector(response):
     li = main_tag.css('li') #will be a list
     return li
 
-def get_title(li_tag):
+def get_article_title(li_tag):
     """get article title from single li tag"""
     title = li_tag.css('h2').css('a::text').get()
     return title
@@ -46,15 +46,19 @@ def get_pdf_link(li_tag):
     return download_link
 
 def get_publication_time(li_tag):
+    '''get publication month and year of the article'''
     time = li_tag.css('.year::attr(title)').get()
     return time
     
 
 def get_nextpage(response):
+    '''get the link of the next page from the pagination button'''
     href = response.css('.next::attr(href)').get()
     base_url = 'https://link.springer.com'
     next_link = base_url+href
     return next_link
+
+
 
 class SpringerspiderSpider(scrapy.Spider):
     name = 'springerspider'
@@ -69,7 +73,7 @@ class SpringerspiderSpider(scrapy.Spider):
         
         for li_tag in li_tags:
             #because li_tags is a list, we have to scrape each one. 
-            article_item['title'] = get_title(li_tag)
+            article_item['title'] = get_article_title(li_tag)
             article_item['article_link'] = get_link(li_tag)
             article_item['snippet'] = get_snippet(li_tag)
             article_item['authors']= get_authors(li_tag)
@@ -79,11 +83,11 @@ class SpringerspiderSpider(scrapy.Spider):
             
         next_page = get_nextpage(response)
         
-        if '1' not in next_page[:45]:
+        if '10' not in next_page[:45]:
             yield response.follow(next_page, callback=self.parse)
             
             
-            
+         
             
             
             

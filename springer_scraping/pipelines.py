@@ -5,7 +5,7 @@
 
 
 # useful for handling different item types with a single interface
-import scrapy
+
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 import mysql.connector
@@ -36,7 +36,7 @@ class MySqlPipeline(object):
         self.conn = mysql.connector.connect(
             host = 'localhost',
             user = 'root',
-            passwd = '',
+            passwd = 'your_pass',
             database = 'springer_scraping'
         )
         self.curr = self.conn.cursor()
